@@ -11,7 +11,7 @@ router
 router
   .route("/:id")
   .get(getProduct)
-  .put(auth, multer, updateProduct)
-  .delete(auth, deleteProduct)
+  .put(multer, updateProduct)
+  .delete(deleteProduct)
 
 module.exports = router

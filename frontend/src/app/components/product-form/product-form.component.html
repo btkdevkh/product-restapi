@@ -1,0 +1,13 @@
+<form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+  <h2>Product Form</h2>
+  <input type="text" placeholder="Name" name="name" [(ngModel)]="name"><br>
+  <textarea placeholder="Description" name="description" [(ngModel)]="description"></textarea><br>
+  <input type="number" placeholder="Price" name="price" [(ngModel)]="price"><br>
+  <input 
+    type="file" 
+    name="image"
+    (change)="handleFileInput($event)"
+  >
+  <br>
+  <button type="submit">Submit</button>
+</form>

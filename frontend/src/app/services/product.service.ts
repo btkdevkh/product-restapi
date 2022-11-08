@@ -4,10 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_PRODUCT_URL } from '../config';
 import { Product } from '../Product';
 
-const headers = { headers: new HttpHeaders({ 
-  'Content-Type': 'application/json' 
-})}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -25,15 +21,12 @@ export class ProductService {
     return this.http.get<Product>(`${API_PRODUCT_URL}/${id}`)
   }
 
-  createProduct(product: Product): Observable<Product> {   
-    return this.http.post<Product>(API_PRODUCT_URL, product, headers)
-  }
+  createProduct(product: Product, imageFile: File): Observable<Product> {   
+    const formData: FormData = new FormData()
+    formData.append("product", JSON.stringify(product))
+    formData.append("image", imageFile)
 
-  createProductImage(imageFile: File): Observable<File> {    
-    const formData: any = new FormData()
-    formData.append('image', imageFile)
-    
-    return this.http.post<File>(API_PRODUCT_URL, formData)
+    return this.http.post<Product>(API_PRODUCT_URL, formData)
   }
 
 }

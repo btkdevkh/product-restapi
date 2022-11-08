@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/Product';
-import { ProductService } from 'src/app/services/product.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -8,48 +7,28 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  name: string|undefined
-  description: string|undefined
-  price: number|undefined
-  inStock: boolean = true
+  email: string|undefined
+  password: string|undefined
   
-  imageFile: File|undefined
-
   constructor(
-    private productService: ProductService
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
   }
 
-  handleFileInput(e: any) {
-    if(!e.target) return
-
-    this.imageFile = e.target.files[0]
-    
-    if(!this.imageFile) {
-      console.log("undefined");
-      return
-    }    
-  }
-
   onSubmit() {
-    if(!this.name || !this.description || !this.price || !this.imageFile) {
+    if(!this.email || !this.password) {
       console.log("Empty");
       return
     }
 
-    const product: Product = {
-      name: this.name,
-      description: this.description,
-      price: this.price,
-      inStock: this.inStock,
+    const user = {
+      email: this.email,
+      password: this.password
     }
-
-    console.log(product);
     
-    // this.productService.createProductImage(this.imageFile).subscribe()
-    this.productService.createProduct(product).subscribe()
+    this.userService.signup(user).subscribe()
   }
 
 }

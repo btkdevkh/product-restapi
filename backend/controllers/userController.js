@@ -3,12 +3,25 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const signup = async (req, res) => {
-  const { email, password } = req.body
-  const hash = await bcrypt.hash(password, 10)
+  try {
+    const { email, password } = req.body
 
-  const userCreated = await UserModel.create({ email, password: hash })
+    const user = await UserModel.findOne({ email })
+      
+    if(user) {
+      res.status(401)
+      throw new Error("Credentials are already exists")
+    }
 
-  res.json({ user: userCreated })
+    const hash = await bcrypt.hash(password, 10)
+
+    const userCreated = await UserModel.create({ email, password: hash })
+
+    res.json({ user: userCreated })
+  } catch (error) {
+    console.log(error.message);
+    res.json({ message: error.message })
+  }
 }
 
 const login = async (req, res) => {
