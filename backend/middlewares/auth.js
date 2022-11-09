@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
 
     const token = authorization.split(" ")[1]
     
-    const decodedToken = jwt.verify(token, "bella123")
+    const decodedToken = jwt.verify(JSON.parse(token), "bella123")
     const userId = decodedToken.userId
     req.auth = { userId }
 

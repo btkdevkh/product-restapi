@@ -7,11 +7,11 @@ const multer = require('../middlewares/multer-config')
 router
   .route("/")
   .get(getProducts)
-  .post(multer, createProduct)
+  .post(auth, multer, createProduct)
 router
   .route("/:id")
   .get(getProduct)
-  .put(multer, updateProduct)
-  .delete(deleteProduct)
+  .put(auth, multer, updateProduct)
+  .delete(auth, deleteProduct)
 
 module.exports = router

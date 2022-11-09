@@ -4,30 +4,24 @@ import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { ProductsComponent } from './components/products/products.component';
-import { ProductComponent } from './components/product/product.component';
-import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { SignupComponent } from './components/signup/signup.component';
-import { FormsModule } from '@angular/forms';
-import { ProductFormComponent } from './components/product-form/product-form.component';
 import { LoginComponent } from './components/login/login.component';
+import { FormsModule } from '@angular/forms';
+import { ProductModuleModule } from './modules/product-module/product-module.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    ProductsComponent,
-    ProductComponent,
-    ProductDetailsComponent,
     SignupComponent,
-    ProductFormComponent,
     LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ProductModuleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

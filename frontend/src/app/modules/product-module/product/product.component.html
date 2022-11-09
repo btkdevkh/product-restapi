@@ -1,0 +1,7 @@
+<div *ngIf="product">
+  <a routerLink="{{'/products/' + product._id}}">{{product.name}}</a>&nbsp;&nbsp;
+  <img [src]="product.imageUrl" [ngStyle]="{'width': '100px'}">&nbsp;
+  <button (click)="updateProduct(product._id)">./</button>&nbsp;
+  <button (click)="deleteProduct(product._id)">x</button>
+  <hr>
+</div>

@@ -8,6 +8,8 @@
     name="image"
     (change)="handleFileInput($event)"
   >
-  <br>
+  <br><br>
+  <img *ngIf="product" [src]="product.imageUrl" [ngStyle]="{'width': '200px'}">
+  <br><br>
   <button type="submit">Submit</button>
 </form>

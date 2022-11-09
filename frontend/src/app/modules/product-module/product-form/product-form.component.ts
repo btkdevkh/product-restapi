@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/Product';
+import { ActivatedRoute } from '@angular/router';
+import { Product } from 'src/app/models/Product';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -8,6 +9,8 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
+  product: Product|undefined
+  productId: string|undefined
 
   name: string|undefined
   description: string|undefined
@@ -17,10 +20,23 @@ export class ProductFormComponent implements OnInit {
   imageFile: File|undefined
 
   constructor(
+    private route: ActivatedRoute,
     private productService: ProductService
   ) { }
 
   ngOnInit(): void {
+    const id: string|null = this.route.snapshot.paramMap.get('id')
+
+    if(id) {      
+      this.productId = id
+      this.productService.getProduct(id).subscribe(products => {
+        this.product = products
+
+        this.name = this.product.name
+        this.description = this.product.description
+        this.price = this.product.price
+      })
+    }
   }
 
   handleFileInput(e: any) {
@@ -35,7 +51,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   onSubmit() {
-    if(!this.name || !this.description || !this.price || !this.imageFile) {
+    if(!this.name || !this.description || !this.price) {
       console.log("Empty");
       return
     }
@@ -46,8 +62,13 @@ export class ProductFormComponent implements OnInit {
       price: this.price,
       inStock: this.inStock,
     }
-    
-    this.productService.createProduct(product, this.imageFile).subscribe()
+
+    if(this.productId) {
+      this.productService.updateProduct(product, this.imageFile, this.productId).subscribe()
+    } else {
+      if(this.imageFile) this.productService.createProduct(product, this.imageFile).subscribe()
+    }
+
   }
 
 }

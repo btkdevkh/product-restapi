@@ -4,14 +4,20 @@
       <li>
         <a routerLink="/">Home</a>
       </li>
-      <li>
+      <li *ngIf="this.userService.userLogged()">
         <a routerLink="/products">Products</a>
       </li>
-      <li>
+      <li *ngIf="!this.userService.userLogged()">
         <a routerLink="/signup">Signup</a>
       </li>
-      <li>
+      <li *ngIf="!this.userService.userLogged()">
         <a routerLink="/login">Login</a>
+      </li>
+      <li *ngIf="this.userService.userLogged()">
+        <a routerLink="/admin">Admin</a>
+      </li>
+      <li *ngIf="this.userService.userLogged()">
+        <a (click)="logout()">Logout</a>
       </li>
     </ul>
   </nav>

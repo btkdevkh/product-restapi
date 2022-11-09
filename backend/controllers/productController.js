@@ -30,7 +30,7 @@ const updateProduct = async (req, res) => {
   const product = req.file ? {
     ...JSON.parse(req.body.product),
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-  } : { ...req.body }
+  } : { ...JSON.parse(req.body.product) }
 
   await ProductModel.findByIdAndUpdate(req.params.id, product)
 
